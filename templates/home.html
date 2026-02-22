@@ -1,43 +1,122 @@
-{%extends "layout.html"%}
-{%block content%}
+{% extends "layout.html" %}
+{% block content %}
+
 <style>
-    h2 {color: #000080;}
-      
-    a[href] {color: red;}
-
-    a:hover {color: green;}
-
+  
+        body {
+    margin: 0;
+    background-image: url("/static/backgroundimage.jpg");
+    background-size: cover;          /* Makes image cover entire screen */
+    background-position: center;     /* Centers image */
+    background-repeat: no-repeat;    /* Prevents repeating */
+    background-attachment: fixed;    /* Optional smooth effect */
+}
+       
+        
+          
     
-    body {
-        background-image: url('/static/backgroundimage.jpg');
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: 100% 100%;
+
+    .home-container {
+        text-align: center;
+        padding: 60px 20px;
     }
-        
-        
+
+    .home-container h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #1a237e;
+        margin-bottom: 20px;
+    }
+
+    .home-container p {
+        font-size: 18px;
+        color: #444;
+        max-width: 700px;
+        margin: auto;
+    }
+
+    .card-container {
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        background: white;
+        padding: 30px;
+        width: 250px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+        color: #0d47a1;
+        margin-bottom: 15px;
+    }
+
+    .card a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #1e88e5;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+    .card a:hover {
+        background-color: #1565c0;
+    }
+
+    .note {
+        margin-top: 60px;
+        font-size: 14px;
+        color: #777;
+    }
 </style>
 
+<div class="home-container">
 
-<div class="about">
-  <center><h1>Welcome to Our Multiple Disease Predictor Site</h1>
-  <h2>Our trained Machine Learning model can predict whether a person is suffering from a disease or not on the basis of details provided to it.<h2>
-</center>
-  
-    <h2><br/>This site offers the following disease prediction:<br/>
-    <ul>
-        <li><a href="{{ url_for('diabetes') }}">Diabetes</a></li>
-        <li><a href="{{ url_for('parkinsons') }}">Parkinsons</a></li>
-        <li><a href="{{ url_for('heartdisease') }}">Heart Disease</a></li>
-    </ul>
-  </h2>
+    <h1>Secure Multi-Disease Prediction System</h1>
 
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <h6>Note: This site is just a dummy project. Please don't take any disease prediction seriously. We don't take any responsibility for wrong predictions.</h6>
+    <p>
+        Our AI-powered healthcare system predicts multiple diseases using
+        machine learning models. The system ensures security, explainability,
+        and reliable medical insights.
+    </p>
+
+    <div class="card-container">
+
+        <div class="card">
+            <h3>Diabetes Prediction</h3>
+            <a href="{{ url_for('diabetes') }}">Check Now</a>
+        </div>
+
+        <div class="card">
+            <h3>Parkinson’s Prediction</h3>
+            <a href="{{ url_for('parkinsons') }}">Check Now</a>
+        </div>
+
+        <div class="card">
+            <h3>Heart Disease Prediction</h3>
+            <a href="{{ url_for('heartdisease') }}">Check Now</a>
+        </div>
+
+    </div>
+
+    <div class="note">
+        Note: This system is for educational purposes only and should not be
+        used as a medical diagnosis tool.
+    </div>
 
 </div>
-{%endblock%}
+
+{% endblock %}

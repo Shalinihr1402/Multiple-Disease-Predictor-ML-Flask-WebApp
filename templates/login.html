@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    body {
+        margin: 0;
+        background: url("{{ url_for('static', filename='backgroundimage.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Remove white background from container if exists */
+    .container {
+        background: transparent !important;
+    }
+
+    .auth-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+    }
+
+    .auth-container {
+        width: 400px;
+        padding: 40px;
+        border-radius: 20px;
+
+        /* REAL GLASS EFFECT */
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+
+        text-align: center;
+        color: white;
+    }
+
+    .auth-container h2 {
+        margin-bottom: 25px;
+    }
+
+    .auth-container input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+    }
+
+    .auth-container button {
+        width: 100%;
+        padding: 12px;
+        background: #1e88e5;
+        border: none;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .auth-container button:hover {
+        background: #1565c0;
+    }
+
+    .auth-container a {
+        color: #fff;
+        font-weight: bold;
+    }
+</style>
+
+<div class="auth-wrapper">
+    <div class="auth-container">
+        <h2>Login</h2>
+
+        <form method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <p style="margin-top:15px;">
+            Don’t have an account? <a href="/register">Register</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}

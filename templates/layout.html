@@ -1,26 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Multiple Disease Predictor Site</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
-  </head>
+<head>
+    <title>Secure Multi-Disease AI System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
 <body>
-  <header>
+<header>
     <div class="container">
-      <h1 class="logo">Multiple Disease Predictor</h1>
-      <strong><nav>
-        <ul class="menu">
-          <li><a href="{{ url_for('home') }}">Home</a></li>
-          <li><a href="{{ url_for('diabetes') }}">Diabetes Prediction</a></li>
-          <li><a href="{{ url_for('parkinsons') }}">Parkinsons Prediction</a></li>
-          <li><a href="{{ url_for('heartdisease') }}">Heart Disease Prediction</a></li>
-        </ul>
-      </nav></strong>
+        <h1 class="logo">Secure Multi-Disease AI</h1>
+
+        <nav>
+            <ul class="menu">
+
+                <!-- Always visible -->
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+
+                {% if current_user.is_authenticated %}
+                    
+                    <!-- Show only when logged in -->
+                    <li><a href="{{ url_for('diabetes') }}">Diabetes</a></li>
+                    <li><a href="{{ url_for('parkinsons') }}">Parkinsons</a></li>
+                    <li><a href="{{ url_for('heartdisease') }}">Heart Disease</a></li>
+
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+
+                {% else %}
+
+                    <!-- Show only when NOT logged in -->
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+
+                {% endif %}
+
+            </ul>
+        </nav>
+
+        {% if current_user.is_authenticated %}
+        <div style="color:white; margin-top:10px;">
+            Welcome, {{ current_user.username }} 👋
+        </div>
+        {% endif %}
+
     </div>
-  </header>
-  <div class="container">
-    {%block content%}
-    {%endblock%}
-  </div>
+</header>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
 </body>
 </html>

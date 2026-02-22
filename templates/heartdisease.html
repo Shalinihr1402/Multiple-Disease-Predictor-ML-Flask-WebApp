@@ -1,129 +1,108 @@
-{%extends "layout.html"%}
-{%block content%}
+{% extends "layout.html" %}
+{% block content %}
 
+<style>
+    body {
+        margin: 0;
+        background-image: url("/static/backgroundimage.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: 'Segoe UI', sans-serif;
+    }
 
+    .form-container {
+        max-width: 900px;
+        margin: 80px auto;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    }
 
-<style type="text/css">
-  .form-style-3{
-    max-width: 900px;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    padding: 20px;
-  }
-  .form-style-3 label{
-    display:block;
-    margin-bottom: 10px;
-  }
-  .form-style-3 label > span{
-    float: left;
-    width: 350px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 18px;
-    text-shadow: 1px 1px 1px #fff;
-  }
-  .form-style-3 fieldset{
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    margin: 0px 0px 10px 0px;
-    border: 1px solid #f5ac1b;
-    padding: 20px;
-    background: #db74af;
-    box-shadow: inset 0px 0px 15px #FFE5E5;
-    -moz-box-shadow: inset 0px 0px 15px #FFE5E5;
-    -webkit-box-shadow: inset 0px 0px 15px #FFE5E5;
-  }
-  .form-style-3 fieldset legend{
-    color: #f21bb2;
-    border-top: 1px solid #FFD2D2;
-    border-left: 1px solid #FFD2D2;
-    border-right: 1px solid #FFD2D2;
-    border-radius: 5px 5px 0px 0px;
-    -webkit-border-radius: 5px 5px 0px 0px;
-    -moz-border-radius: 5px 5px 0px 0px;
-    background: #FFF4F4;
-    padding: 0px 8px 3px 8px;
-    box-shadow: -0px -1px 2px #F1F1F1;
-    -moz-box-shadow:-0px -1px 2px #F1F1F1;
-    -webkit-box-shadow:-0px -1px 2px #F1F1F1;
-    font-weight: normal;
-    font-size: 25px;
-  }
-  .form-style-3 textarea{
-    width:250px;
-    height:100px;
-  }
-  .form-style-3 input[type=text],
-  .form-style-3 input[type=number],
-  .form-style-3 select, 
-  .form-style-3 textarea{
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border: 1px solid #FFC2DC;
-    outline: none;
-    color: #121211;
-    padding: 5px 8px 5px 8px;
-    box-shadow: inset 1px 1px 4px #FFD5E7;
-    -moz-box-shadow: inset 1px 1px 4px #FFD5E7;
-    -webkit-box-shadow: inset 1px 1px 4px #FFD5E7;
-    background: #FFEFF6;
-    width:50%;
-  }
-  .form-style-3  input[type=submit],
-  .form-style-3  input[type=button]{
-    background: #7495c4;
-    border: 3px solid #0d0d0d;
-    padding: 15px 25px 15px 25px;
-    color: #fff;
-    box-shadow: inset -1px -1px 3px #FF62A7;
-    -moz-box-shadow: inset -1px -1px 3px #FF62A7;
-    -webkit-box-shadow: inset -1px -1px 3px #FF62A7;
-    border-radius: 3px;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;	
-    font-weight: bold;
-    font-size: 15px;
-  }
+    .form-container h1 {
+        text-align: center;
+        color: #0d47a1;
+        margin-bottom: 30px;
+    }
 
-  body {
-    background-image: url('/static/backgroundimage.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
-}
-  
-  </style>
-<body>
+    .form-group {
+        margin-bottom: 18px;
+    }
 
-  
- <center>
-    <h1><br/>Heart Disease Prediction<br/><br/></h1>
-    <div class="form-style-3">
-    <form action="{{url_for('predictheartdisease')}}" method="post">
-    <fieldset><legend>Please Provide The Details</legend>
-      <h2>{{output_text}}</h2>
-    <label for="field1"><span>age </span></span><input type="number" step="0.00000000000001" placeholder="age" class="input-field" name="field1" required="required" value="" /></label>
-    <label for="field2"><span>sex </span></span><input type="number" step="0.00000000000001" placeholder="enter 0 for female, 1 for male, according to the dataset " class="input-field" name="field2" required="required" value="" /></label>
-    <label for="field3"><span>cp </span></span><input type="number" step="0.00000000000001" placeholder="enter either 0, 1 , 2, or 3 according to the dataset" class="input-field" name="field3" required="required" value="" /></label>
-    <label for="field4"><span>trestbps</span></span><input type="number" step="0.00000000000001" placeholder="generally between 94-200 according to the dataset" class="input-field" name="field4" required="required" value="" /></label>
-    <label for="field5"><span>chol </span></span><input type="number" step="0.00000000000001" placeholder="generally between 126-564 according to the dataset" class="input-field" name="field5" required="required" value="" /></label>
-    <label for="field6"><span>fbs </span></span><input type="number" step="0.00000000000001" placeholder="enter either 0 or 1 according to the dataset" class="input-field" name="field6" required="required" value="" /></label>
-    <label for="field7"><span>restecg</span></span><input type="number" step="0.00000000000001" placeholder="enter either 0, 1, or 2 according to the dataset" class="input-field" name="field7" required="required" value="" /></label>
-    <label for="field8"><span>thalach</span></span><input type="number" step="0.00000000000001" placeholder="generally between 71-202 according to the dataset" class="input-field" name="field8" required="required" value="" /></label>
-    <label for="field9"><span>exang</span></span><input type="number" step="0.00000000000001" placeholder="enter either 0 or 1 according to the dataset" class="input-field" name="field9" required="required" value="" /></label>
-    <label for="field10"><span>oldpeak </span></span><input type="number" step="0.00000000000001" placeholder="generally between 0-6.20 according to the dataset" class="input-field" name="field10" required="required" value="" /></label>
-    <label for="field11"><span>slope </span></span><input type="number" step="0.00000000000001" placeholder="enter either 0, 1, or 2 according to the dataset" class="input-field" name="field11" required="required" value="" /></label>
-    <label for="field12"><span>ca </span></span><input type="number" step="0.00000000000001" placeholder="enter either 0, 1, 2, 3, or 4 according to the dataset" class="input-field" name="field12" required="required" value="" /></label>
-    <label for="field13"><span>thal </span></span><input type="number" step="0.00000000000001" placeholder="enter either 0, 1 , 2, or 3 according to the dataset" class="input-field" name="field13" required="required" value="" /></label>
-    
-    <label><span> </span><input type="submit" value="Predict" /></label>
-    
-    
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background: #1e88e5;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+        background: #1565c0;
+    }
+
+    .result {
+        margin-top: 25px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: #0d47a1;
+    }
+</style>
+
+<div class="form-container">
+    <h1>Heart Disease Prediction</h1>
+
+    <form action="{{ url_for('predictheartdisease') }}" method="post">
+
+        {% for i in range(1,14) %}
+        {% endfor %}
+
+        <div class="form-group"><label>Age</label><input type="number" step="any" name="field1" required></div>
+        <div class="form-group"><label>Sex (0=Female, 1=Male)</label><input type="number" step="any" name="field2" required></div>
+        <div class="form-group"><label>Chest Pain Type (0-3)</label><input type="number" step="any" name="field3" required></div>
+        <div class="form-group"><label>Resting Blood Pressure</label><input type="number" step="any" name="field4" required></div>
+        <div class="form-group"><label>Cholesterol</label><input type="number" step="any" name="field5" required></div>
+        <div class="form-group"><label>Fasting Blood Sugar (0 or 1)</label><input type="number" step="any" name="field6" required></div>
+        <div class="form-group"><label>Rest ECG (0-2)</label><input type="number" step="any" name="field7" required></div>
+        <div class="form-group"><label>Max Heart Rate</label><input type="number" step="any" name="field8" required></div>
+        <div class="form-group"><label>Exercise Induced Angina (0 or 1)</label><input type="number" step="any" name="field9" required></div>
+        <div class="form-group"><label>Oldpeak</label><input type="number" step="any" name="field10" required></div>
+        <div class="form-group"><label>Slope (0-2)</label><input type="number" step="any" name="field11" required></div>
+        <div class="form-group"><label>CA (0-4)</label><input type="number" step="any" name="field12" required></div>
+        <div class="form-group"><label>Thal (0-3)</label><input type="number" step="any" name="field13" required></div>
+
+        <button type="submit" class="submit-btn">Predict</button>
     </form>
-    <h2>{{output_text}}</h2>
-    </div>
-  </center>  
-<body>
-  {%endblock%}
+
+    {% if output_text %}
+        <div class="result">
+            {{ output_text }}
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

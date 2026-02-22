@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style>
+    body {
+        margin: 0;
+        background: url("{{ url_for('static', filename='backgroundimage.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .container {
+        background: transparent !important;
+    }
+
+    .dashboard-container {
+        padding: 40px;
+        color: #1a237e;
+    }
+
+    .stat-box {
+        display: inline-block;
+        width: 220px;
+        padding: 20px;
+        margin: 10px;
+        border-radius: 15px;
+
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(8px);
+
+        text-align: center;
+        font-weight: 600;
+        color: #0d47a1;
+
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .table-box {
+        margin-top: 40px;
+        padding: 25px;
+        border-radius: 15px;
+
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        color: #333;
+    }
+
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+
+    th {
+        background: #1976d2;
+        color: white;
+    }
+
+    h2 {
+        color: #0d47a1;
+        font-weight: 700;
+    }
+
+    h3 {
+        color: #0d47a1;
+        font-weight: 600;
+    }
+</style>
+
+<div class="dashboard-container">
+
+    <h2>AI Monitoring Dashboard</h2>
+
+    <div>
+        <div class="stat-box">
+            Total Users<br><strong>{{ total_users }}</strong>
+        </div>
+
+        <div class="stat-box">
+            Total Predictions<br><strong>{{ total_predictions }}</strong>
+        </div>
+
+        <div class="stat-box">
+            Diabetes<br><strong>{{ diabetes_count }}</strong>
+        </div>
+
+        <div class="stat-box">
+            Parkinsons<br><strong>{{ parkinsons_count }}</strong>
+        </div>
+
+        <div class="stat-box">
+            Heart Disease<br><strong>{{ heart_count }}</strong>
+        </div>
+    </div>
+
+    <div class="table-box">
+        <h3>Recent Predictions</h3>
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Disease</th>
+                <th>Result</th>
+                <th>Timestamp</th>
+            </tr>
+
+            {% for p in recent_predictions %}
+            <tr>
+                <td>{{ p.username }}</td>
+                <td>{{ p.disease_type }}</td>
+                <td>{{ p.result }}</td>
+                <td>{{ p.timestamp }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

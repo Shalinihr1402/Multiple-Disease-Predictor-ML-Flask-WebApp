@@ -1,80 +1,73 @@
+/* ===== Global ===== */
 body {
   margin: 0;
   padding: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #060;
-
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #222;
 }
 
-/*
- * header area with menus
- */
-
+/* ===== Header ===== */
 header {
-  background-color: #141ede;
-  height: 35px;
+  background: linear-gradient(90deg, #0d47a1, #1976d2);
+  height: 60px;
   width: 100%;
-  opacity: 0.7;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-h1,h2,h3,h4,h5,h6,p{
-margin-left:12px;
-
-}
-
-header h1.logo {
-  margin: 0;
-  font-size: 1.5em;
-  color: rgba(236, 192, 192, 0.777);
-  text-transform: uppercase;
-  float: left;
-  margin-left:-35px;
-  margin-top: 5px;
-
-}
-
-header h1.logo:hover {
-  color: rgba(236, 192, 192, 0.777);
-  text-decoration: none;
-}
+/* ===== Container ===== */
 .container {
   width: 1200px;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* ===== Logo ===== */
+header h1.logo {
+  margin: 0;
+  font-size: 22px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
-/* menus on header */
+/* ===== Navigation Menu ===== */
 .menu {
-  float: right;
-  margin-top: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .menu li {
-  display: inline;
+  display: inline-block;
+  margin-left: 30px;
 }
 
-
-.menu li + li {
-  margin-left: 50px;
-}
-
-/*menus colour*/
 .menu li a {
-  color: rgb(250, 245, 245);
+  color: #ffffff;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 500;
+  transition: 0.3s;
 }
 
-/* mouse cursor over link */
+/* Hover effect */
 .menu li a:hover {
-  color: red;
+  color: #ffd54f;
 }
 
+/* Active link style */
 .menu li:first-child a {
-  background-color: #d83810;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
 }
 
-
-
-
+/* ===== Headings ===== */
+h1, h2, h3, h4, h5, h6, p {
+  margin-left: 12px;
+}

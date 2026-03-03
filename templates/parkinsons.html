@@ -28,7 +28,7 @@
     }
 
     .form-group {
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
 
     .form-group label {
@@ -36,11 +36,12 @@
         font-weight: 600;
         margin-bottom: 4px;
         color: #333;
+        font-size: 14px;
     }
 
     .form-group input {
         width: 100%;
-        padding: 8px;
+        padding: 7px;
         border-radius: 6px;
         border: 1px solid #ccc;
         font-size: 13px;
@@ -56,29 +57,54 @@
         font-size: 16px;
         cursor: pointer;
         transition: 0.3s;
-        margin-top: 10px;
+        margin-top: 15px;
     }
 
     .submit-btn:hover {
         background: #1565c0;
     }
 
-    .result {
-        margin-top: 20px;
-        text-align: center;
-        font-size: 18px;
-        font-weight: bold;
+    .report-container {
+        margin-top: 40px;
+        padding: 30px;
+        background: #f4f8ff;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .report-container h2 {
         color: #0d47a1;
     }
+
+    .report-container p {
+        font-size: 16px;
+        margin: 6px 0;
+    }
+
+    .risk-high { color: #d32f2f; font-weight: bold; }
+    .risk-moderate { color: #f57c00; font-weight: bold; }
+    .risk-low { color: #388e3c; font-weight: bold; }
+
+    .advisory {
+        margin-top: 15px;
+        padding: 15px;
+        background: #fff3cd;
+        border-left: 5px solid #ff9800;
+        border-radius: 6px;
+    }
+
+    img {
+        margin-top: 20px;
+        border-radius: 8px;
+        max-width: 100%;
+    }
+
 </style>
 
 <div class="form-container">
-    <h1>Parkinson’s Prediction</h1>
+    <h1>Parkinson’s Prediction System</h1>
 
     <form action="{{ url_for('predictparkinsons') }}" method="post">
-
-        {% for i in range(1,23) %}
-        {% endfor %}
 
         {% set labels = [
         "MDVP:Fo(Hz)", "MDVP:Fhi(Hz)", "MDVP:Flo(Hz)", "MDVP:Jitter(%)",
@@ -98,9 +124,48 @@
         <button type="submit" class="submit-btn">Predict</button>
     </form>
 
-    {% if output_text %}
-    <div class="result">
-        {{ output_text }}
+    {% if prediction_score %}
+    <div class="report-container">
+
+        <h2>🧠 AI Clinical Assessment Report</h2>
+
+        <p><strong>Prediction Score:</strong> {{ prediction_score }}</p>
+
+        <p>
+            <strong>Risk Classification:</strong>
+            <span class="
+                {% if risk == 'High' or risk == 'Critical' %}risk-high
+                {% elif risk == 'Moderate' %}risk-moderate
+                {% else %}risk-low
+                {% endif %}
+            ">
+                {{ risk }}
+            </span>
+        </p>
+
+        <p><strong>Uncertainty Level:</strong> {{ uncertainty }}</p>
+
+        <h3>Primary Contributing Biomarkers:</h3>
+        <ul>
+            {% for feature in top_features %}
+            <li>{{ feature }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>📊 SHAP Feature Impact Visualization</h3>
+        <img src="{{ url_for('static', filename=shap_image) }}">
+
+        <div class="advisory">
+            <h3>📝 Clinical Advisory</h3>
+            <p>{{ advice }}</p>
+        </div>
+
+        <hr>
+        <small>
+            ⚖ Responsible AI Notice: This AI system provides decision-support only
+            and should not replace professional medical diagnosis.
+        </small>
+
     </div>
     {% endif %}
 

@@ -13,8 +13,8 @@
     }
 
     .form-container {
-        max-width: 900px;
-        margin: 80px auto;
+        max-width: 950px;
+        margin: 60px auto;
         background: rgba(255, 255, 255, 0.95);
         padding: 40px;
         border-radius: 15px;
@@ -28,19 +28,19 @@
     }
 
     .form-group {
-        margin-bottom: 18px;
+        margin-bottom: 14px;
     }
 
     .form-group label {
         display: block;
         font-weight: 600;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
         color: #333;
     }
 
     .form-group input {
         width: 100%;
-        padding: 10px;
+        padding: 8px;
         border-radius: 6px;
         border: 1px solid #ccc;
         font-size: 14px;
@@ -63,22 +63,38 @@
         background: #1565c0;
     }
 
-    .result {
-        margin-top: 25px;
-        text-align: center;
-        font-size: 18px;
-        font-weight: bold;
-        color: #0d47a1;
+    .report-container {
+        margin-top: 40px;
+        padding: 30px;
+        background: #f4f8ff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
+
+    .risk-high { color: #d32f2f; font-weight: bold; }
+    .risk-moderate { color: #f57c00; font-weight: bold; }
+    .risk-low { color: #388e3c; font-weight: bold; }
+
+    .advisory {
+        margin-top: 15px;
+        padding: 15px;
+        background: #fff3cd;
+        border-left: 5px solid #ff9800;
+        border-radius: 6px;
+    }
+
+    img {
+        margin-top: 20px;
+        max-width: 100%;
+        border-radius: 8px;
+    }
+
 </style>
 
 <div class="form-container">
-    <h1>Heart Disease Prediction</h1>
+    <h1>❤️ Heart Disease Prediction System</h1>
 
     <form action="{{ url_for('predictheartdisease') }}" method="post">
-
-        {% for i in range(1,14) %}
-        {% endfor %}
 
         <div class="form-group"><label>Age</label><input type="number" step="any" name="field1" required></div>
         <div class="form-group"><label>Sex (0=Female, 1=Male)</label><input type="number" step="any" name="field2" required></div>
@@ -97,10 +113,49 @@
         <button type="submit" class="submit-btn">Predict</button>
     </form>
 
-    {% if output_text %}
-        <div class="result">
-            {{ output_text }}
+    {% if prediction_score %}
+    <div class="report-container">
+
+        <h2>❤️ AI Cardiac Risk Assessment Report</h2>
+
+        <p><strong>Prediction Score:</strong> {{ prediction_score }}</p>
+
+        <p>
+            <strong>Risk Classification:</strong>
+            <span class="
+                {% if risk == 'High' or risk == 'Critical' %}risk-high
+                {% elif risk == 'Moderate' %}risk-moderate
+                {% else %}risk-low
+                {% endif %}
+            ">
+                {{ risk }}
+            </span>
+        </p>
+
+        <p><strong>Uncertainty Level:</strong> {{ uncertainty }}</p>
+
+        <h3>Primary Contributing Clinical Features:</h3>
+        <ul>
+            {% for feature in top_features %}
+            <li>{{ feature }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>📊 SHAP Feature Impact Visualization</h3>
+        <img src="{{ url_for('static', filename=shap_image) }}">
+
+        <div class="advisory">
+            <h3>📝 Clinical Advisory</h3>
+            <p>{{ advice }}</p>
         </div>
+
+        <hr>
+        <small>
+            ⚖ Responsible AI Notice: This AI system provides decision-support only 
+            and does not replace professional cardiological diagnosis.
+        </small>
+
+    </div>
     {% endif %}
 
 </div>
